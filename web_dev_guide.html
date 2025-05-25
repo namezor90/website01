@@ -8,7 +8,12 @@
     <link rel="stylesheet" href="styles/themes.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1a2332">
+    <meta name="theme-color" content="#4fc3f7">
+    <meta name="description" content="Komplett webfejlesztési útmutató HTML, CSS és JavaScript témakörökben">
+    <meta name="keywords" content="webfejlesztés, HTML, CSS, JavaScript, útmutató, tanulás">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 </head>
 <body data-theme="dark">
     <!-- PWA Install Banner -->
@@ -49,11 +54,11 @@
                             <span class="user-icon">👤</span>
                         </button>
                         <div id="userDropdown" class="dropdown hidden">
-                            <a href="#" id="exportData">📦 Adatok exportálása</a>
-                            <a href="#" id="importData">📥 Adatok importálása</a>
-                            <a href="#" id="clearData">🗑️ Adatok törlése</a>
+                            <a href="#" onclick="exportData()">📦 Adatok exportálása</a>
+                            <a href="#" onclick="importData()">📥 Adatok importálása</a>
+                            <a href="#" onclick="clearData()">🗑️ Adatok törlése</a>
                             <hr>
-                            <a href="#" id="offlineMode">📱 Offline mód</a>
+                            <a href="#" id="offlineMode" onclick="toggleOfflineMode()">📱 Offline mód</a>
                         </div>
                     </div>
                 </div>
@@ -175,7 +180,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>📝 Jegyzet hozzáadása</h3>
-                <button class="modal-close">✕</button>
+                <button class="modal-close" onclick="closeModal('noteModal')">✕</button>
             </div>
             <div class="modal-body">
                 <input type="text" id="noteTitle" placeholder="Jegyzet címe" class="form-input">
@@ -195,7 +200,7 @@
         <div class="modal-content large">
             <div class="modal-header">
                 <h3>🎨 Színpaletta Generátor</h3>
-                <button class="modal-close">✕</button>
+                <button class="modal-close" onclick="closeModal('colorModal')">✕</button>
             </div>
             <div class="modal-body">
                 <div id="colorGenerator"></div>
@@ -207,7 +212,7 @@
         <div class="modal-content xlarge">
             <div class="modal-header">
                 <h3>🎮 Kód Playground</h3>
-                <button class="modal-close">✕</button>
+                <button class="modal-close" onclick="closeModal('playgroundModal')">✕</button>
             </div>
             <div class="modal-body">
                 <div id="codePlayground"></div>
@@ -241,8 +246,7 @@
     <script src="js/components/quiz.js"></script>
 
     <script src="js/sections/content-loader.js"></script>
-    
-    <script src="js/pwa/service-worker-register.js"></script>
+    <script src="js/global-functions.js"></script>
     
     <script>
         // Initialize the application
