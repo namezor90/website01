@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Dev Pro - Teljes Útmutató</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a2332">
+</head>
+<body data-theme="dark">
+    <!-- PWA Install Banner -->
+    <div id="installBanner" class="install-banner hidden">
+        <div class="install-content">
+            <span>📱 Telepítsd az alkalmazást az asztalra!</span>
+            <div class="install-buttons">
+                <button id="installBtn" class="btn-primary">Telepítés</button>
+                <button id="dismissInstall" class="btn-secondary">Később</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🚀 Web Dev Pro</h1>
+                    <span class="version">v2.0</span>
+                </div>
+                
+                <div class="header-controls">
+                    <!-- Search -->
+                    <div class="search-container">
+                        <input type="text" id="globalSearch" placeholder="Keresés... (Ctrl+K)" class="search-input">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="themeToggle" class="theme-toggle" title="Téma váltás">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    
+                    <!-- User Menu -->
+                    <div class="user-menu">
+                        <button id="userMenuBtn" class="user-btn">
+                            <span class="user-icon">👤</span>
+                        </button>
+                        <div id="userDropdown" class="dropdown hidden">
+                            <a href="#" id="exportData">📦 Adatok exportálása</a>
+                            <a href="#" id="importData">📥 Adatok importálása</a>
+                            <a href="#" id="clearData">🗑️ Adatok törlése</a>
+                            <hr>
+                            <a href="#" id="offlineMode">📱 Offline mód</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-scroll">
+                <button class="nav-btn active" data-section="dashboard">📊 Dashboard</button>
+                <button class="nav-btn" data-section="html">📄 HTML</button>
+                <button class="nav-btn" data-section="css">🎨 CSS</button>
+                <button class="nav-btn" data-section="javascript">⚡ JavaScript</button>
+                <button class="nav-btn" data-section="layout">📐 Layout</button>
+                <button class="nav-btn" data-section="responsive">📱 Responsive</button>
+                <button class="nav-btn" data-section="snippets">🔧 Snippets</button>
+                <button class="nav-btn" data-section="debugging">🐛 Debug</button>
+                <button class="nav-btn" data-section="errors">❌ Hibák</button>
+                <button class="nav-btn" data-section="tools">🛠️ Eszközök</button>
+                <button class="nav-btn" data-section="performance">⚡ Performance</button>
+                <button class="nav-btn" data-section="accessibility">♿ A11y</button>
+                <button class="nav-btn" data-section="modern">🔮 Modern CSS</button>
+                <button class="nav-btn" data-section="animations">✨ Animációk</button>
+                <button class="nav-btn" data-section="playground">🎮 Playground</button>
+                <button class="nav-btn" data-section="quiz">🧠 Quiz</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="dashboard-grid">
+                    <div class="stats-card">
+                        <h3>📈 Tanulási statisztikák</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-number" id="totalViews">0</span>
+                                <span class="stat-label">Megtekintés</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="completedQuizzes">0</span>
+                                <span class="stat-label">Kvíz teljesítve</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="bookmarksCount">0</span>
+                                <span class="stat-label">Kedvenc</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="notesCount">0</span>
+                                <span class="stat-label">Jegyzet</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions-card">
+                        <h3>⚡ Gyors műveletek</h3>
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="openColorGenerator()">
+                                🎨 Színpaletta
+                            </button>
+                            <button class="action-btn" onclick="openCodePlayground()">
+                                🎮 Playground
+                            </button>
+                            <button class="action-btn" onclick="startQuiz()">
+                                🧠 Random kvíz
+                            </button>
+                            <button class="action-btn" onclick="openNotes()">
+                                📝 Jegyzetek
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-card">
+                        <h3>🕒 Legutóbbi</h3>
+                        <div id="recentActivity" class="recent-list">
+                            <!-- Dinamikusan töltődik -->
+                        </div>
+                    </div>
+                    
+                    <div class="favorites-card">
+                        <h3>⭐ Kedvencek</h3>
+                        <div id="favoritesList" class="favorites-list">
+                            <!-- Dinamikusan töltődik -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content sections will be loaded dynamically -->
+            <div id="dynamicContent"></div>
+        </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <div class="fab-container">
+        <button id="fabMain" class="fab">
+            <span class="fab-icon">➕</span>
+        </button>
+        <div id="fabMenu" class="fab-menu hidden">
+            <button class="fab-item" onclick="addNote()" title="Jegyzet hozzáadása">📝</button>
+            <button class="fab-item" onclick="addBookmark()" title="Kedvencekhez">⭐</button>
+            <button class="fab-item" onclick="shareContent()" title="Megosztás">📤</button>
+            <button class="fab-item" onclick="exportCode()" title="Kód exportálása">💾</button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="noteModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📝 Jegyzet hozzáadása</h3>
+                <button class="modal-close">✕</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="noteTitle" placeholder="Jegyzet címe" class="form-input">
+                <textarea id="noteContent" placeholder="Jegyzet tartalma..." class="form-textarea"></textarea>
+                <div class="note-tags">
+                    <input type="text" id="noteTags" placeholder="Címkék (vesszővel elválasztva)" class="form-input">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('noteModal')">Mégse</button>
+                <button class="btn-primary" onclick="saveNote()">Mentés</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="colorModal" class="modal hidden">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>🎨 Színpaletta Generátor</h3>
+                <button class="modal-close">✕</button>
+            </div>
+            <div class="modal-body">
+                <div id="colorGenerator"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="playgroundModal" class="modal hidden">
+        <div class="modal-content xlarge">
+            <div class="modal-header">
+                <h3>🎮 Kód Playground</h3>
+                <button class="modal-close">✕</button>
+            </div>
+            <div class="modal-body">
+                <div id="codePlayground"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner hidden">
+        <div class="spinner"></div>
+        <p>Betöltés...</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/core/app.js"></script>
+    <script src="js/core/storage.js"></script>
+    <script src="js/core/navigation.js"></script>
+    <script src="js/core/search.js"></script>
+    <script src="js/features/themes.js"></script>
+    <script src="js/features/notes.js"></script>
+    <script src="js/features/bookmarks.js"></script>
+    <script src="js/features/progress.js"></script>
+    <script src="js/features/notifications.js"></script>
+    <script src="js/components/color-generator.js"></script>
+    <script src="js/components/code-playground.js"></script>
+    <script src="js/components/quiz.js"></script>
+    <script src="js/sections/content-loader.js"></script>
+    <script src="js/pwa/service-worker-register.js"></script>
+    
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
+        });
+    </script>
+</body>
+</html>
